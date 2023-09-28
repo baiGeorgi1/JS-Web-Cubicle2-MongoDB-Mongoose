@@ -20,10 +20,6 @@ dbConnect()
 
 //Routes - можем да ги изнесем в отделен route със homeContr & cubeContr
 app.use(router);
-// app.use(homeConfig);
-// app.use('/cubes', cubeController); // if the path starts with (/cubes)
-// app.get('*', (req, res) => {
-//     res.redirect('/404');
-// });
+
 
 app.listen(PORT, () => console.log(`Server is listeninig on ${PORT}...`));
