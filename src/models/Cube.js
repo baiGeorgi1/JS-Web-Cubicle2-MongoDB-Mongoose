@@ -9,3 +9,4 @@ const cubeSchema = new mongoose.Schema({
 });
 // creating cube model (Always with Upper case)
 const Cube = mongoose.model('Cube', cubeSchema);
+module.exports = Cube;
