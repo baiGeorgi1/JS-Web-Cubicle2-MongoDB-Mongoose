@@ -5,7 +5,7 @@ const app = express();
 
 const expConfigurator = require('./config/expConfig');
 const hbsConfigurator = require('./config/hbsConfig');
-const router = require('./controllers/homeController');
+const router = require('./router');
 const dbConnect = require('./config/dbConfig');
 
 //express config

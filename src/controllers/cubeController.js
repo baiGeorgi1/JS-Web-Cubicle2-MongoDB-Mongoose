@@ -3,6 +3,7 @@ const cubeManager = require('../managers/cubeManager');
 
 //path comming as '/cubes/anyPath
 router.get('/create', (req, res) => {
+    console.log('hi');
     res.render('create');
 });
 router.get('/details/:cubeId', (req, res) => {
@@ -11,14 +12,14 @@ router.get('/details/:cubeId', (req, res) => {
 
 });
 
-router.post('/create', (req, res) => { //тук взимаме данни от bodyParser-a
+router.post('/create', async (req, res) => { //тук взимаме данни от bodyParser-a
     //console.log(req.body) трябва да запазим данните от парсера в нова папка (manager)
     const {
         name,
         description,
         imageUrl,
         difficultyLevel } = req.body;
-    cubeManager.create({
+    await cubeManager.create({
         name,
         description,
         imageUrl,

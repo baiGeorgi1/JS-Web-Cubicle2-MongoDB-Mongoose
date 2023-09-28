@@ -1,4 +1,6 @@
 const uniqId = require('uniqid');
+const Cube = require('../models/Cube');
+
 const cubes = [
     {
         id: "HTB1CSddXRxRMKJjy0Fdq6yifFXa6",
@@ -47,14 +49,12 @@ exports.getById = (cubeId) => {
     return found;
 };
 
+// create cube on mongoDB
+exports.create = async (cubeData) => {
+    const cube = new Cube(cubeData);
 
-exports.create = (cubeData) => { //or allData as name,description,difficultyLVL,image
+    await cube.save(); //saving on mongoDb
 
-    const newCube = {
-        id: uniqId(),
-        ...cubeData
-    };
-    cubes.push(newCube);
 
-    return newCube;
+    return cube;
 }; 
