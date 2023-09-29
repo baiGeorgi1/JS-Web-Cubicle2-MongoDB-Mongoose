@@ -16,7 +16,7 @@ hbsConfigurator(app);
 //connect DB and catch err
 dbConnect()
     .then(() => console.log('DB connected successfully!'))
-    .catch(err => { console.log(`DB error:`, err); });
+    .catch(err => { console.log(`DB error:`, err.message); });
 
 //Routes - можем да ги изнесем в отделен route със homeContr & cubeContr
 app.use(router);

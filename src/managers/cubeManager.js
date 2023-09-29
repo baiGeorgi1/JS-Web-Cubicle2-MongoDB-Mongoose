@@ -1,6 +1,7 @@
 const uniqId = require('uniqid');
 const Cube = require('../models/Cube');
 
+
 const cubes = [
     {
         id: "HTB1CSddXRxRMKJjy0Fdq6yifFXa6",
@@ -30,9 +31,9 @@ const cubes = [
         description: "Magnets in AirSM will not drop, and their positions will be more precise with the Magnets-Snap-On design. With the use of 3mm*2mm magnets, the handfeel will be more stable and more comfortable.",
     },
 ];
-exports.getAll = (search, from, to) => {
-    let result = cubes.slice();
-
+exports.getAll = async (search, from, to) => {
+    let result = await Cube.find().lean();
+    //TO DO use mongoose to filter in db
     if (search) {
         result = result.filter(cube => cube.name.toLowerCase().includes(search.toLowerCase()));
 
@@ -43,18 +44,12 @@ exports.getAll = (search, from, to) => {
     }
     return result;
 };
-exports.getById = (cubeId) => {
-    const found = cubes.find(x => x.id === cubeId);
-    console.log(found);
-    return found;
-};
+exports.getById = (cubeId) => Cube.findById(cubeId);// .lean() ако искам да върне обект
 
 // create cube on mongoDB
 exports.create = async (cubeData) => {
     const cube = new Cube(cubeData);
 
     await cube.save(); //saving on mongoDb
-
-
     return cube;
 }; 
