@@ -15,7 +15,7 @@ exports.getAll = async (search, from, to) => {
     }
     return result;
 };
-exports.getById = (cubeId) => Cube.findById(cubeId);// .lean() ако искам да върне обект
+exports.getById = (cubeId) => Cube.findById(cubeId).populate('accessories');// .lean() ако искам да върне обект
 
 // ********* create cube on mongoDB 1-variant (async-await)
 // exports.create = async (cubeData) => {
