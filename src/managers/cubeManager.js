@@ -17,10 +17,16 @@ exports.getAll = async (search, from, to) => {
 };
 exports.getById = (cubeId) => Cube.findById(cubeId);// .lean() ако искам да върне обект
 
-// create cube on mongoDB
-exports.create = async (cubeData) => {
+// ********* create cube on mongoDB 1-variant (async-await)
+// exports.create = async (cubeData) => {
+//     const cube = new Cube(cubeData);
+
+//     await cube.save(); //saving on mongoDb
+//     return cube;
+// };
+// ******** second variant
+exports.create = (cubeData) => {
     const cube = new Cube(cubeData);
 
-    await cube.save(); //saving on mongoDb
-    return cube;
+    return cube.save(); //saving on mongoDb
 }; 
