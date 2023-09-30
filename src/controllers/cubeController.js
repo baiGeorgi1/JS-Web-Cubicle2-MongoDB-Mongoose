@@ -33,5 +33,8 @@ router.post('/create', async (req, res) => { //тук взимаме данни 
 
     res.redirect('/');
 });
+router.get('/:cubeId/attach-accessory', (req, res) => {
+    res.render('accessory/attach');
+});
 
 module.exports = router;
