@@ -37,7 +37,7 @@ router.post('/create', async (req, res) => { //тук взимаме данни 
 });
 router.get('/:cubeId/attach-accessory', async (req, res) => {
     const cube = await cubeManager.getById(req.params.cubeId).lean();
-    const accessories = await accessoryManager.getAll().lean();
+    const accessories = await accessoryManager.getOthers(cube.accessories).lean();
     const hasAccessories = accessories.length > 0; // За да подадем на hbs данни за иф-а
     res.render('accessory/attach', { cube, accessories, hasAccessories });
 });
