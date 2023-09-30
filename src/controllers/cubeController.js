@@ -41,5 +41,13 @@ router.get('/:cubeId/attach-accessory', async (req, res) => {
     const hasAccessories = accessories.length > 0; // За да подадем на hbs данни за иф-а
     res.render('accessory/attach', { cube, accessories, hasAccessories });
 });
+router.post('/:cubeId/attach-accessory', (req, res) => {
+    const { accessory: accessoryId } = req.body; // тaka се преименува
+    const cubeId = req.params.cubeId;
+
+    cubeManager.attachAccessory(cubeId, accessoryId);
+
+    res.redirect(`/cubes/details/${cubeId}`);
+});
 
 module.exports = router;

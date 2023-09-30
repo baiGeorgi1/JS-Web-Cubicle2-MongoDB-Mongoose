@@ -29,4 +29,12 @@ exports.create = (cubeData) => {
     const cube = new Cube(cubeData);
 
     return cube.save(); //saving on mongoDb
-}; 
+};
+// вариант1 за пушване на аксесори в куб
+exports.attachAccessory = async (cubeId, accessoryId) => {
+    return Cube.findByIdAndUpdate(cubeId, { $push: { accessories: accessoryId } }); // тук пушваме в схемата на кубът новия аксесоар
+    // вариант 2
+    // const cube = await Cube.findById(cubeId);
+    // cube.accessories.push(accessoryId);
+    // return cube.save();
+};
