@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt'); // за validate password ни трябва
+const jwt = require('../lib/jwt');
+const { SECRET } = require('../config/config');
 
 
 exports.register = (userData) => User.create(userData);
@@ -15,6 +17,12 @@ exports.login = async (username, password) => {
     if (!isValid) {
         throw new Error('Cannot find username or password!');
     }
+    // create jwt with cookies
+    const payload = {
+        _id: user.id,
+        username: user.username
+    };
+    const token = await jwt.sign(payload, SECRET, { expiresIn: '2d' });
     // return user
-    return user;
+    return token;
 };

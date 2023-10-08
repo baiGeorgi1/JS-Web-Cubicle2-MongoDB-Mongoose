@@ -5,6 +5,7 @@ const accessoryManager = require('../managers/accessoryManager');
 
 //path comming as '/cubes/anyPath
 router.get('/create', (req, res) => {
+    console.log(req.user);
     res.render('create');
 });
 
