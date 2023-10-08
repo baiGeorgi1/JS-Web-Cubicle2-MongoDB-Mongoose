@@ -1,7 +1,9 @@
 <main>
   <h1>Register Form</h1>
   <div class="form">
-    <form action="#" method="POST">
+    {{! Ако пътят от get заявката е същият , можем да скипнем (изтрием) 'action-a' или да зададем точният път 
+    "users/regisrter" }}
+    <form action="/users/register" method="POST">
       <label for="username">Username</label>
       <input type="text" id="username" name="username" />
 
