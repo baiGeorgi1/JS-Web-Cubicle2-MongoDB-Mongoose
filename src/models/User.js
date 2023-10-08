@@ -15,6 +15,8 @@ const userSchema = new mongoose.Schema({
         // }
     }
 });
+// TODO validate if user exists
+
 //Понеже в схемата нямаме repeatPassword - добавяме виртуално,за да можем да жалидираме паролата
 userSchema.virtual('repeatPassword')
     .set(function (value) {
