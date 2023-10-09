@@ -11,7 +11,12 @@ const cubeSchema = new mongoose.Schema({
     accessories: [{
         type: mongoose.Types.ObjectId,
         ref: 'Accessory'
-    }]
+    }],
+    // part 3 Workshop
+    owner: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 });
 // creating cube model (Always with Upper case)
 const Cube = mongoose.model('Cube', cubeSchema);

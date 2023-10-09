@@ -31,7 +31,8 @@ router.post('/create', async (req, res) => { //тук взимаме данни 
         name,
         description,
         imageUrl,
-        difficultyLvl: Number(difficultyLevel)
+        difficultyLvl: Number(difficultyLevel),
+        owner: req.user._id, // part 3 workshop
     });
 
     res.redirect('/');
