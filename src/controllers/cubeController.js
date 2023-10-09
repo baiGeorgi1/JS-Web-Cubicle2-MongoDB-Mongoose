@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const cubeManager = require('../managers/cubeManager');
 const accessoryManager = require('../managers/accessoryManager');
+const { selectedDifficultyOption } = require('../utils/viewHelpers');
 
 //path comming as '/cubes/anyPath
 router.get('/create', (req, res) => {
@@ -56,30 +57,14 @@ router.post('/:cubeId/attach-accessory', (req, res) => {
 router.get('/delete/:cubeId', async (req, res) => {
     //трябва да имаме .lean() ,защото връща документ.На нас ни трябва обект!
     const cube = await cubeManager.getById(req.params.cubeId).lean();
-
-    res.render('cube/delete', { cube });
+    const difficulty = selectedDifficultyOption(cube.difficultyLvl);
+    res.render('cube/delete', { cube, difficulty });
 });
 router.post('/delete/:cubeId', async (req, res) => {
     await cubeManager.delete(req.params.cubeId).lean();
     res.redirect('/');
 });
-//part 3 difficultyLvl view
-function selectedDifficultyOption(difficultyLvl) {
-    const titles = [
-        'Very Easy',
-        'Easy',
-        'Medium(Standard 3x3)',
-        'Intermediate',
-        'Expert',
-        'Hardcore',
-    ];
-    const options = titles.map((title, index) => ({
-        title: `${index + 1} - ${title}`,
-        value: index + 1,
-        selected: +difficultyLvl === index + 1
-    }));
-    return options;
-}
+
 //part 3 - edit page
 router.get('/edit/:cubeId', async (req, res) => {
     const cube = await cubeManager.getById(req.params.cubeId).lean();
