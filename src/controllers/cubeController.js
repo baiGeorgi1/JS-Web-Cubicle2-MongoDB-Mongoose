@@ -53,15 +53,25 @@ router.post('/:cubeId/attach-accessory', (req, res) => {
 });
 
 //part 3 => Delete cube page
-router.get('/:cubeId/delete', async (req, res) => {
+router.get('/delete/:cubeId', async (req, res) => {
     //трябва да имаме .lean() ,защото връща документ.На нас ни трябва обект!
     const cube = await cubeManager.getById(req.params.cubeId).lean();
 
     res.render('cube/delete', { cube });
 });
-router.post('/:cubeId/delete', async (req, res) => {
+router.post('/delete/:cubeId', async (req, res) => {
     await cubeManager.delete(req.params.cubeId).lean();
     res.redirect('/');
+});
+//part 3 - edit page
+router.get('/edit/:cubeId', async (req, res) => {
+    const cube = await cubeManager.getById(req.params.cubeId).lean();
+    res.render('cube/edit', { cube });
+});
+router.post('/edit/:cubeId', async (req, res) => {
+    const cubeData = req.body;
+    await cubeManager.update(req.params.cubeId, cubeData);
+    res.redirect(`/cubes/details/${req.params.cubeId}`);
 });
 
 module.exports = router;

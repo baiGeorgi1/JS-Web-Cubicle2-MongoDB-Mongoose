@@ -30,6 +30,8 @@ exports.create = (cubeData) => {
 
     return cube.save(); //saving on mongoDb
 };
+//part 3 edit cube
+exports.update = (cubeId, cubeData) => Cube.findByIdAndUpdate(cubeId, cubeData);
 //part 3 delete
 exports.delete = (cubeId) => Cube.findByIdAndDelete(cubeId);
 

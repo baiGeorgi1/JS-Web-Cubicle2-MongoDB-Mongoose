@@ -10,13 +10,9 @@
                     <label for="image">ImageUrl</label>
                     <input type="text" id="image" name="imageUrl" value="{{cube.imageUrl}}" disabled="true" />
                     <label for="difficulty">Difficulty</label>
-                    <select id="difficulty" name="difficultyLevel" value="{{cube.difficultyLvl}}" disabled="true" />
-                    <option value="1">1 - Very Easy</option>
-                    <option value="2">2 - Easy</option>
-                    <option value="3">3 - Medium (Standard 3x3)</option>
-                    <option value="4">4 - Intermediate</option>
-                    <option value="5">5 - Expert</option>
-                    <option value="6">6 - Hardcore</option>
+                    <select id="difficulty" name="difficultyLevel" value="" disabled="true" />
+                    <option value="{{cube.difficultyLvl}}">{{cube.difficultyLvl}}</option>
+                    
                     </select>
                     <input type="submit" value="Delete">
                 </form>
