@@ -5,7 +5,7 @@ const accessoryManager = require('../managers/accessoryManager');
 
 //path comming as '/cubes/anyPath
 router.get('/create', (req, res) => {
-    console.log(req.user);
+
     res.render('cube/create');
 });
 
@@ -54,9 +54,14 @@ router.post('/:cubeId/attach-accessory', (req, res) => {
 
 //part 3 => Delete cube page
 router.get('/:cubeId/delete', async (req, res) => {
+    //трябва да имаме .lean() ,защото връща документ.На нас ни трябва обект!
     const cube = await cubeManager.getById(req.params.cubeId).lean();
-    console.log(cube);
+
     res.render('cube/delete', { cube });
+});
+router.post('/:cubeId/delete', async (req, res) => {
+    await cubeManager.delete(req.params.cubeId).lean();
+    res.redirect('/');
 });
 
 module.exports = router;
