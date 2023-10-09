@@ -85,7 +85,6 @@ router.get('/edit/:cubeId', async (req, res) => {
     const cube = await cubeManager.getById(req.params.cubeId).lean();
 
     const difficulty = selectedDifficultyOption(cube.difficultyLvl);
-    console.log(difficulty);
 
     res.render('cube/edit', { cube, difficulty });
 });
