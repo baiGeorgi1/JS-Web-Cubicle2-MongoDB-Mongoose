@@ -4,16 +4,28 @@ const bcrypt = require('bcrypt'); // библиотека за криптира�
 
 //Генерираме схема за потребителите,в която задаваме нужните данни,за запазване в DB
 const userSchema = new mongoose.Schema({
-    username: String,
+    username: {
+        type: String,
+        required: [true, 'Username is required!'],           // Това е Mongoose Validation
+        minLength: [5, 'Password should be min 5 characters!'],           // Това е Mongoose Validation
+        match: /^[A-Za-z0-9]+$/,   // Това е Mongoose Validation with RegExp
+        unique: true               //Това не е валидация,а ИНДЕКС(работи като валидатор,и търси по  _id)
+
+    },
     password: {         //Ще проверим за паролата дали съвпада с рипийдпаса с userSchema.virtual
         type: String,
-        // validate: {
-        //     validator: function (value) { // value === password защото сме във password полето
-        //         return this.repeatPassword === value; // this сочи към документа , който ние създаваме в момента
-        //     },
-        //     message: `Password missmatch!`  // send mess if password is not the same with repeatPassword
-        // }
-    }
+        // MONGOOSE VALIDATION
+        required: [true, 'Required password!'], // можем да добавяме месиджи
+        validate: {
+            validator: function (value) { // value === password защото сме във password полето
+                return /^[A-Za-z0-9]+$/.test(value); // по-лесен начин за валидация
+
+                // return this.repeatPassword === value; // this сочи към документа , който ние създаваме в момента
+            },
+            message: `Invalid password characters!`  // send mess if password is not the same with repeatPassword
+        },
+        minLength: 8,
+    },
 });
 // TODO validate if user exists
 
@@ -24,6 +36,7 @@ userSchema.virtual('repeatPassword')
             throw new mongoose.MongooseError('Password Missmatch!');
         }
     });
+// Validate Hooks
 // преди да сейвнем направи това със pre - има го в nmp google
 userSchema.pre('save', async function () {
     const hash = await bcrypt.hash(this.password, 10); // подаваме рундове или сол(някакъв стринг(има си подсказка за hash))
