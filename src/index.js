@@ -7,6 +7,8 @@ const expConfigurator = require('./config/expConfig');
 const hbsConfigurator = require('./config/hbsConfig');
 const router = require('./router');
 const dbConnect = require('./config/dbConfig');
+//Глобалния ерор хендлър се използва,ако ще имаме редирект на 404
+const errorMiddleWare = require('./middlewares/errorHandlerMiddleware'); // това е за глобален errorHandler (не е задулжителен)
 
 //express config
 expConfigurator(app);
@@ -20,6 +22,7 @@ dbConnect()
 
 //Routes - можем да ги изнесем в отделен route със homeContr & cubeContr
 app.use(router);
+app.use(errorMiddleWare); // извикваме го веднага след раутовете,защото те имат възможност да го извикат!
 
 
 app.listen(PORT, () => console.log(`Server is listeninig on ${PORT}...`));

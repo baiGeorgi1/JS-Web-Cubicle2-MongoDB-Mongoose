@@ -29,13 +29,18 @@ router.post('/register', async (req, res) => {
 router.get('/login', (req, res) => {
     res.render('users/login');
 });
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {  //next е ако ползваме глобалния errorHandler
     const { username, password } = req.body;
+    // Вариант 1 с глобален errorHandler
+    try {
+        const token = await userManager.login(username, password);
+        res.cookie('auth', token, { httpOnly: true }); // set-ваме куки,за да знае браузера,че има логване
 
-    const token = await userManager.login(username, password);
-    res.cookie('auth', token, { httpOnly: true }); // set-ваме куки,за да знае браузера,че има логване
+        res.redirect('/');
+    } catch (error) {
+        next(error);
+    }
 
-    res.redirect('/');
 });
 router.get('/logout', (req, res) => {
     res.clearCookie('auth');
