@@ -40,6 +40,7 @@ router.post('/login', async (req, res, next) => {  //next е ако ползва
     } catch (error) {
         next(error);
     }
+    //TODO without global errorHandler
 
 });
 router.get('/logout', (req, res) => {

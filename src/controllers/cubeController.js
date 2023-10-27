@@ -26,6 +26,7 @@ router.get('/details/:cubeId', async (req, res) => {
 
 router.post('/create', async (req, res) => { //тук взимаме данни от bodyParser-a
     //console.log(req.body) трябва да запазим данните от парсера в нова папка (manager)
+    //TODO ErrorHandling
     const {
         name,
         description,
@@ -78,8 +79,9 @@ router.get('/edit/:cubeId', async (req, res) => {
 });
 router.post('/edit/:cubeId', async (req, res) => {
     const cubeData = req.body;
+    //TODO ErrorHandling
     await cubeManager.update(req.params.cubeId, cubeData);
-    res.redirect(`/cubes/details/${req.params.cubeId}`);
+    res.redirect(`/cube/details/${req.params.cubeId}`);
 });
 
 module.exports = router;
